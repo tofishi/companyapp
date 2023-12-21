@@ -28,7 +28,7 @@ class UsersController extends Controller
       
             $data["title"] = "User - List ";
             $data['user_list'] = User::where('id', '!=', 1)->get();
-
+echo 1;
             return view('user_list', $data);
        
     }
