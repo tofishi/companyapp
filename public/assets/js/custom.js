@@ -170,5 +170,118 @@ $(document).ready(function() {
     });
 
 
+    $("#userForm").validate({
+        rules: {
+            name: {
+                required: true
+            },
+            last_name: {
+                required: true
+            },            
+            email: {
+                required: true,
+                email: true
+            },
+            phone_number: {
+                required: true
+            },
+            bio: {
+                required: true
+            },
+            password: {
+                required: true,
+                minlength: 8,
+            },
+            title: {
+                required: true
+            },
+            address: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            state: {
+                required: true
+            },
+            zipcode: {
+                required: true
+            },
+            country: {
+                required: true
+            },
+            facebook: {
+                required: true
+            },
+            instagram: {
+                required: true
+            },
+            instagram_threads: {
+                required: true
+            },
+            whatsapp: {
+                required: true
+            },
+            twiter: {
+                required: true
+            },
+            youtube: {
+                required: true
+            },
+            behance: {
+                required: true
+            },
+            dribbble: {
+                required: true
+            },
+            pinterest: {
+                required: true
+            },
+        },
+        // messages: {
+        //     email: {
+        //         required: "Please enter your email address",
+        //         email: "Please enter a valid email address"
+        //     },
+        //     password: {
+        //         required: "Please enter your password"
+        //     }
+        // },
+        submitHandler: function(form) {
+            // Create a FormData object
+        var formData = new FormData(form);
+
+        // Append the file inputs to FormData
+        formData.append('profile_image', $('#profile_image')[0].files[0]);
+        formData.append('cover_image', $('#cover_image')[0].files[0]);
+
+            $.ajax({
+                url: BASE_URL + "/user/submit_user",
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+
+                success: function(response) {
+                    if (response.code == "200") {
+                        toastr.success(response.message);
+                        //window.location.href = "/dashboard";
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
+                        toastr.error(xhr.responseJSON.errors);
+                    } else {
+                        //toastr.error('Login failed. Please check your credentials.');
+                    }
+                }
+            });
+        }
+    });
+
+
 
 }); // DOCUMENT

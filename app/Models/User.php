@@ -19,12 +19,33 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
         'email',
         'phone_number',
         'verification_code',
         'email_verified',
         'phonecode',
         'password',
+        'bio',
+        'title',
+        'profile_image',
+        'cover_image',
+        'address',
+        'city',
+        'state',
+        'zipcode',
+        'country',
+        'facebook',
+        'instagram',
+        'instagram_threads',
+        'whatsapp',
+        'twiter',
+        'linkedin',
+        'youtube',
+        'behance',
+        'dribbble',
+        'pinterest',
+        'status',
         
     ];
 
@@ -44,7 +65,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+       
         'password' => 'hashed',
     ];
 }

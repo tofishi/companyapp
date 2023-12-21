@@ -30,6 +30,14 @@
                     <div class="col-md-4 user_plan"></div>
                     <div class="col-md-4 user_status"></div>
                   </div> -->
+                  <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
+                    <a href="{{url('/')}}/user/add" class="dt-button add-new btn btn-primary ms-2 ms-sm-0 waves-effect waves-light" tabindex="0" aria-controls="DataTables_Table_0" >
+                      <span>
+                        <i class="ti ti-plus me-0 me-sm-1 ti-xs"></i>
+                        <span class="d-none d-sm-inline-block">Add User</span>
+                      </span>
+                    </a>
+                  </div>
                 </div>
                 <div class="card-datatable text-nowrap">
                   <table class="datatables-ajax table">

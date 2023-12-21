@@ -86,7 +86,7 @@
               </div>
               <div class="mb-3">
                 
-                <label for="email" class="form-label">Phone</label><br>
+                <label for="phone" class="form-label">Phone</label><br>
                 <div class="contact-d">
                 <select class="form-control" name="phonecode" >
                   

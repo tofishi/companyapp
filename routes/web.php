@@ -35,13 +35,14 @@ Route::post('/login-submit', [App\Http\Controllers\Auth\AuthController::class, '
 
 Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard');
 
-/*================ Start Manage CMS Routes ================*/
+/*================ Start Manage User Routes ================*/
 Route::group(['prefix' => 'user'], function () {
 
     Route::get('/list', [App\Http\Controllers\UsersController::class, 'index']);
-
+    Route::get('/add', [App\Http\Controllers\UsersController::class, 'add_user']);
+    Route::post('/submit_user', [App\Http\Controllers\UsersController::class, 'submit_user']);
 });
-/*================ End Manage CMS Routes ================*/
+/*================ End Manage User Routes ================*/
 
 Route::get('/logout', [App\Http\Controllers\Auth\AuthController::class, 'logout'])->name('logout');
 

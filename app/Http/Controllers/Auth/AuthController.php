@@ -38,7 +38,7 @@ class AuthController extends Controller
     public function otp()
     {
         $data["title"] = "OPT";
-        $data["phone_code"] = Countries::get();
+       
         return view('auth/opt_verification', $data);
     }
 
