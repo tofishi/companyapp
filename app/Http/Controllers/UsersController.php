@@ -32,11 +32,16 @@ class UsersController extends Controller
             return view('user_list', $data);
        
     }
-    public function add_user()
+    public function add_user(Request $request)
     {
       
             $data["title"] = "User - Add ";
             $data["phone_code"] = Countries::get();
+            
+            if(!empty($request->segment(3))){
+                $data['user_details'] = User::where('id', $request->segment(3))->first();
+               // print_r($data['user_details']);
+            }
             return view('add_user', $data);
        
     }
@@ -61,16 +66,16 @@ class UsersController extends Controller
                 'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'cover_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 // Add validation rules for social media fields
-            'facebook' => 'nullable|string|max:255',
-            'instagram' => 'nullable|string|max:255',
-            'linkedin' => 'nullable|string|max:255',
-            'instagram_threads' => 'nullable|string|max:255',
-            'whatsapp' => 'nullable|string|max:255',
-            'twiter' => 'nullable|string|max:255',
-            'youtube' => 'nullable|string|max:255',
-            'behance' => 'nullable|string|max:255',
-            'dribbble' => 'nullable|string|max:255',
-            'pinterest' => 'nullable|string|max:255',
+                'facebook' => 'nullable|string|max:255',
+                'instagram' => 'nullable|string|max:255',
+                'linkedin' => 'nullable|string|max:255',
+                'instagram_threads' => 'nullable|string|max:255',
+                'whatsapp' => 'nullable|string|max:255',
+                'twiter' => 'nullable|string|max:255',
+                'youtube' => 'nullable|string|max:255',
+                'behance' => 'nullable|string|max:255',
+                'dribbble' => 'nullable|string|max:255',
+                'pinterest' => 'nullable|string|max:255',
 
 
             ]);

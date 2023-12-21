@@ -64,20 +64,20 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="user-name">First Name</label>
-                                <input type="text" class="form-control" id="user-name" placeholder="First Name" name="name"
+                                <input type="text" value="{{ isset($user_details->name) ? $user_details->name : '' }}" class="form-control" id="user-name" placeholder="First Name" name="name"
                                     aria-label="First Name" />
                             </div>
                             <div class="col">
                                 <label class="form-label" for="last_name">Last Name</label>
-                                <input type="text" class="form-control" id="last_name" placeholder="Last Name" name="last_name"
+                                <input type="text" value="{{ isset($user_details->last_name) ? $user_details->last_name : '' }}"  class="form-control" id="last_name" placeholder="Last Name" name="last_name"
                                     aria-label="Last Name" />
                             </div>
                         </div>
                         <div class="row ">
                           <div class="col">
                             <label class="form-label" for="ecommerce-product-sku">Email</label>
-                             <input type="email" class="form-control" placeholder="Email" name="email"
-                            aria-label="Email" />
+                             <input type="email" value="{{ isset($user_details->email) ? $user_details->email : '' }}" class="form-control" placeholder="Email" name="email"
+                            aria-label="Email" readonly />
                           </div>
                           <div class="col">
                             <label for="phone" class="form-label">Phone</label><br>
@@ -86,18 +86,19 @@
                             
                             @if(!empty($phone_code))
                                 @foreach($phone_code as $code)
-                                    @php 
-                                    if($code->name == "India"){
-                                        $selected = "selected";
-                                    }else{
-                                        $selected = "";
+                                    
+                                <option value="{{$code->phonecode}}" @php 
+                                   if((!empty($user_details->phonecode) &&  $user_details->phonecode == $code->phonecode)){
+                                       echo $selected = "selected";
+                                   }else{
+                                      echo  $selected = "";
                                     }
-                                    @endphp
-                                <option value="{{$code->phonecode}}" {{$selected}}>+{{$code->phonecode}}</option>
+
+                                    @endphp>+{{$code->phonecode}}</option>
                                 @endforeach
                             @endif
                             </select>
-                            <input  id="phone_number" name="phone_number" type="text" placeholder="Enter your Phone"  class="form-control @error('phone') is-invalid @enderror"  value="{{ old('email') }}" required autocomplete="phone">
+                            <input  id="phone_number" value="{{ isset($user_details->phone_number) ? $user_details->phone_number : '' }}" name="phone_number" type="text" placeholder="Enter your Phone"  class="form-control @error('phone') is-invalid @enderror"  required autocomplete="phone">
                             </div> 
                             <label id="phone_number-error" class="error" for="phone_number"></label> 
                           </div>
@@ -105,7 +106,8 @@
 
 
                         <div class="row  form-password-toggle">
-                            <div class="col">
+                            
+                           <div class="col">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group input-group-merge">                 
                                     <input id="password" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -113,9 +115,10 @@
                                 </div>
                                 <label id="password-error" class="error" for="password"></label>
                             </div>
+
                             <div class="col">
                                 <label class="form-label" for="bio">Bio</label>
-                                <input type="text" class="form-control" id="bio" placeholder="Bio" name="bio"
+                                <input type="text" class="form-control" id="bio" value="{{ isset($user_details->bio) ? $user_details->bio : '' }}" placeholder="Bio" name="bio"
                                     aria-label="Bio" />
                             </div>
                         </div>
@@ -123,12 +126,12 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="title">Title</label>
-                                <input type="text" class="form-control" id="title" placeholder="Title" name="title"
+                                <input type="text" class="form-control" id="title" value="{{ isset($user_details->title) ? $user_details->title : '' }}" placeholder="Title" name="title"
                                     aria-label="Title" />
                             </div>
                             <div class="col">
                                 <label class="form-label" for="address">Address</label>
-                                <input type="text" class="form-control" id="address" placeholder="Address" name="address"
+                                <input type="text" class="form-control" id="address" value="{{ isset($user_details->address) ? $user_details->address : '' }}" placeholder="Address" name="address"
                                     aria-label="Address" />
                             </div>
                         </div>
@@ -136,12 +139,12 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="title">City </label>
-                                <input type="text" class="form-control" id="city" placeholder="City" name="city"
+                                <input type="text" class="form-control" id="city" value="{{ isset($user_details->city) ? $user_details->city : '' }}" placeholder="City" name="city"
                                     aria-label="City" />
                             </div>
                             <div class="col">
                                 <label class="form-label" for="address">State </label>
-                                <input type="text" class="form-control" id="state" placeholder="State" name="state"
+                                <input type="text" class="form-control" id="state" value="{{ isset($user_details->state) ? $user_details->state : '' }}" placeholder="State" name="state"
                                     aria-label="State" />
                             </div>
                         </div>
@@ -149,12 +152,12 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="title">Zipcode </label>
-                                <input type="text" class="form-control" id="zipcode" placeholder="Zipcode" name="zipcode"
+                                <input type="text" class="form-control" id="zipcode" value="{{ isset($user_details->zipcode) ? $user_details->zipcode : '' }}" placeholder="Zipcode" name="zipcode"
                                     aria-label="Zipcode" />
                             </div>
                             <div class="col">
                                 <label class="form-label" for="address">Country </label>
-                                <input type="text" class="form-control" id="country" placeholder="Country" name="country"
+                                <input type="text" class="form-control" id="country" value="{{ isset($user_details->country) ? $user_details->country : '' }}" placeholder="Country" name="country"
                                     aria-label="Country" />
                             </div>
                         </div>
@@ -190,52 +193,52 @@
                        
                         <div class="mb-3">
                           <label class="form-label" for="facebook">Facebook</label>
-                          <input type="text" class="form-control" id="facebook" placeholder="Facebook" name="facebook"
+                          <input type="text" class="form-control" id="facebook" value="{{ isset($user_details->facebook) ? $user_details->facebook : '' }}" placeholder="Facebook" name="facebook"
                             aria-label="Facebook" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="instagram">Instagram</label>
-                          <input type="text" class="form-control" id="instagram" placeholder="instagram" name="instagram"
+                          <input type="text" class="form-control" id="instagram" value="{{ isset($user_details->instagram) ? $user_details->instagram : '' }}" placeholder="instagram" name="instagram"
                             aria-label="Instagram" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="instagram_threads">Instagram Threads</label>
-                          <input type="text" class="form-control" id="instagram_threads" placeholder="Instagram Threads" name="instagram_threads"
+                          <input type="text" class="form-control" id="instagram_threads" value="{{ isset($user_details->instagram_threads) ? $user_details->instagram_threads : '' }}" placeholder="Instagram Threads" name="instagram_threads"
                             aria-label="Instagram Threads" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="whatsapp">Whatsapp</label>
-                          <input type="text" class="form-control" id="whatsapp" placeholder="Whatsapp" name="whatsapp"
+                          <input type="text" class="form-control" id="whatsapp" value="{{ isset($user_details->whatsapp) ? $user_details->whatsapp : '' }}" placeholder="Whatsapp" name="whatsapp"
                             aria-label="Whatsapp" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="whatsapp">Linkedin</label>
-                          <input type="text" class="form-control" id="linkedin" placeholder="Linkedin" name="linkedin"
+                          <input type="text" class="form-control" id="linkedin" value="{{ isset($user_details->linkedin) ? $user_details->linkedin : '' }}" placeholder="Linkedin" name="linkedin"
                             aria-label="Linkedin" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="twiter">Twiter</label>
-                          <input type="text" class="form-control" id="twiter" placeholder="Twiter" name="twiter"
+                          <input type="text" class="form-control" id="twiter" value="{{ isset($user_details->twiter) ? $user_details->twiter : '' }}" placeholder="Twiter" name="twiter"
                             aria-label="Twiter" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="youtube">Youtube</label>
-                          <input type="text" class="form-control" id="youtube" placeholder="Youtube" name="youtube"
+                          <input type="text" class="form-control" id="youtube" value="{{ isset($user_details->youtube) ? $user_details->youtube : '' }}" placeholder="Youtube" name="youtube"
                             aria-label="Youtube" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="behance">Behance</label>
-                          <input type="text" class="form-control" id="behance" placeholder="Behance" name="behance"
+                          <input type="text" class="form-control" id="behance" value="{{ isset($user_details->behance) ? $user_details->behance : '' }}" placeholder="Behance" name="behance"
                             aria-label="Behance" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="dribbble">Dribbble</label>
-                          <input type="text" class="form-control" id="dribbble" placeholder="Dribbble" name="dribbble"
+                          <input type="text" class="form-control" id="dribbble" value="{{ isset($user_details->dribbble) ? $user_details->dribbble : '' }}" placeholder="Dribbble" name="dribbble"
                             aria-label="Dribbble" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="pinterest">Pinterest</label>
-                          <input type="text" class="form-control" id="pinterest" placeholder="Pinterest" name="pinterest"
+                          <input type="text" class="form-control" id="pinterest" value="{{ isset($user_details->pinterest) ? $user_details->pinterest : '' }}" placeholder="Pinterest" name="pinterest"
                             aria-label="Pinterest" />
                         </div>
                        

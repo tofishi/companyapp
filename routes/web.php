@@ -40,6 +40,7 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::get('/list', [App\Http\Controllers\UsersController::class, 'index']);
     Route::get('/add', [App\Http\Controllers\UsersController::class, 'add_user']);
+    Route::get('/edit/{id}', [App\Http\Controllers\UsersController::class, 'add_user']);
     Route::post('/submit_user', [App\Http\Controllers\UsersController::class, 'submit_user']);
 });
 /*================ End Manage User Routes ================*/
