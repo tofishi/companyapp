@@ -5,7 +5,7 @@
   class="light-style layout-wide customizer-hide"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../../assets/"
+  data-assets-path="{{asset('assets/')}}"
   data-template="vertical-menu-template">
   <head>
     <meta charset="utf-8" />
@@ -33,8 +33,8 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/fonts/flag-icons.css')}}" />
 
     <!-- Core CSS -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/rtl/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/rtl/theme-default.css')}}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/rtl/core.css')}}" class="/template-customizer-core-css" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/rtl/theme-default.css')}}" class="/template-customizer-theme-css" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
 
     <!-- Vendors CSS -->
@@ -98,7 +98,7 @@
     <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-
+    
 
     <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
     <script src="{{asset('assets/vendor/libs/swiper/swiper.js')}}"></script>

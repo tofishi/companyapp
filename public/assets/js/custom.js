@@ -14,7 +14,10 @@ $(document).ready(function() {
                 number: true, 
                 minlength: 10,
                 maxlength: 11
-            },                    
+            },
+            password: {
+                required: true
+            },
             password_confirmation: {
                 required: true,
                 equalTo: "#password"

@@ -74,7 +74,7 @@
             <!-- /Logo -->
             <h3 class="mb-1">Adventure starts here 🚀</h3>
             <p class="mb-4">Make your app management easy and fun!</p>
-            <form method="POST" action="{{url('/')}}/verify-otp" id="otpForm">
+            <form method="POST"  id="otpForm">
               @csrf      
               <div class="mb-3">
                 <label for="username" class="form-label">OTP</label>
