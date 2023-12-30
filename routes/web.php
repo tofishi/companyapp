@@ -42,6 +42,9 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/add', [App\Http\Controllers\UsersController::class, 'add_user']);
     Route::get('/edit/{id}', [App\Http\Controllers\UsersController::class, 'add_user']);
     Route::post('/submit_user', [App\Http\Controllers\UsersController::class, 'submit_user']);
+    Route::post('/update_user', [App\Http\Controllers\UsersController::class, 'update_user']);
+    Route::post('/delete_user', [App\Http\Controllers\UsersController::class, 'delete_user']);
+    Route::post('/change_user_status', [App\Http\Controllers\UsersController::class, 'updateStatus']);
 });
 /*================ End Manage User Routes ================*/
 

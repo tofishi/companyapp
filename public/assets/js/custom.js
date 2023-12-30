@@ -243,21 +243,10 @@ $(document).ready(function() {
             pinterest: {
                 required: true
             },
-        },
-        // messages: {
-        //     email: {
-        //         required: "Please enter your email address",
-        //         email: "Please enter a valid email address"
-        //     },
-        //     password: {
-        //         required: "Please enter your password"
-        //     }
-        // },
+        },       
         submitHandler: function(form) {
-            // Create a FormData object
+            
         var formData = new FormData(form);
-
-        // Append the file inputs to FormData
         formData.append('profile_image', $('#profile_image')[0].files[0]);
         formData.append('cover_image', $('#cover_image')[0].files[0]);
 
@@ -272,7 +261,7 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.code == "200") {
                         toastr.success(response.message);
-                      
+                        window.location.href = BASE_URL+"/user/list"; 
                     } else {
                         toastr.error(response.message);
                     }
@@ -287,6 +276,166 @@ $(document).ready(function() {
             });
         }
     });
+
+    
+    $("#updateUserForm").validate({
+        rules: {
+            name: {
+                required: true
+            },
+            last_name: {
+                required: true
+            },
+            phone_number: {
+                required: true
+            },
+            bio: {
+                required: true
+            },           
+            title: {
+                required: true
+            },
+            address: {
+                required: true
+            },
+            city: {
+                required: true
+            },
+            state: {
+                required: true
+            },
+            zipcode: {
+                required: true
+            },
+            country: {
+                required: true
+            },
+            facebook: {
+                required: true
+            },
+            instagram: {
+                required: true
+            },
+            instagram_threads: {
+                required: true
+            },
+            whatsapp: {
+                required: true
+            },
+            twiter: {
+                required: true
+            },
+            youtube: {
+                required: true
+            },
+            behance: {
+                required: true
+            },
+            dribbble: {
+                required: true
+            },
+            pinterest: {
+                required: true
+            },
+        },       
+        submitHandler: function(form) {
+            
+        var formData = new FormData(form);
+        formData.append('profile_image', $('#profile_image')[0].files[0]);
+        formData.append('cover_image', $('#cover_image')[0].files[0]);
+
+            $.ajax({
+                url: BASE_URL + "/user/update_user",
+                type: 'POST',
+                data: formData,
+                dataType: 'json',
+                contentType: false,
+                processData: false,
+
+                success: function(response) {
+                    if (response.code == "200") {
+                        toastr.success(response.message);
+                        window.location.href = BASE_URL+"/user/list"; 
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
+                        toastr.error(xhr.responseJSON.errors);
+                    } else {
+                        //toastr.error('Login failed. Please check your credentials.');
+                    }
+                }
+            });
+        }
+    });
+
+   
+
+    $(document).on("click", ".delete-user", function() {
+        var userId = this.getAttribute('data-user-id');
+
+        if (confirm("Are you sure you want to delete this user?")) {
+            
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+                url: BASE_URL + '/user/delete_user',
+                type: 'POST',
+                data: {
+                    "_token": csrfToken,
+                    "user_id": userId
+                },
+                dataType: 'json',
+
+                success: function(response) {
+                    if (response.code == "200") {
+                        toastr.success(response.message);
+                        window.location.reload();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    if (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.email) {
+                        toastr.error(xhr.responseJSON.errors.email);
+                    } else {
+                        toastr.error('Please try again.');
+                    }
+                }
+            });
+        }
+    });
+
+    $(document).on("click", ".statusUser", function() {
+        var userId = $(this).data('user-id');
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+         
+        $.ajax({
+            url: BASE_URL + '/user/change_user_status',
+            data: {
+                "_token": csrfToken,
+                "user_id": userId
+            },
+            type: 'POST',
+            dataType: 'json',
+            success: function(response) {
+                if (response.code == 200) {
+                    // Update the badge text and class based on the new status
+                    var badge = $('#statusUser'+userId);
+                    badge.text(response.new_status == 1 ? 'Active' : 'Inactive');
+                    badge.removeClass('bg-label-success bg-label-secondary');
+                    badge.addClass(response.new_status == 1 ? 'bg-label-success' : 'bg-label-secondary');
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Error occurred while updating status. Please try again.');
+            }
+        });
+    });
+
 
 
 

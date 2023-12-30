@@ -31,11 +31,11 @@
               <!-- Content wrapper -->
               <div class="content-wrapper">
             <!-- Content -->
-            <form  method="POST"  id="userForm" enctype="multipart/form-data">
+            <form  method="POST"  @if(Request::segment(2) == 'edit') id="updateUserForm" @else  id="userForm" @endif  enctype="multipart/form-data">
             @csrf    
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="py-3 mb-0">
-                <span class="text-muted fw-light">User /</span><span class="fw-medium"> Add User</span>
+                <span class="text-muted fw-light">User /</span><span class="fw-medium">  @if(Request::segment(2) == 'edit') Edit @else  Add @endif User</span>
               </h4>
 
               <div class="app-ecommerce">
@@ -43,12 +43,15 @@
                 <div
                   class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-3">
                   <div class="d-flex flex-column justify-content-center">
-                    <h4 class="mb-1 mt-3">Add a new User</h4>
+                    <h4 class="mb-1 mt-3">@if(Request::segment(2) == 'edit') Update @else  Add a new @endif User</h4>
                     <!-- <p class="text-muted">Orders placed across your store</p> -->
                   </div>
                   <div class="d-flex align-content-center flex-wrap gap-3">
-                    
-                    <button type="submit" class="btn btn-primary">Publish User</button>
+                    @if(Request::segment(2) == 'edit')
+                      <button type="submit" class="btn btn-primary">Update User</button>
+                    @else
+                      <button type="submit" class="btn btn-primary">Add User</button>
+                    @endif
                   </div>
                 </div>
 
@@ -66,6 +69,8 @@
                                 <label class="form-label" for="user-name">First Name</label>
                                 <input type="text" value="{{ isset($user_details->name) ? $user_details->name : '' }}" class="form-control" id="user-name" placeholder="First Name" name="name"
                                     aria-label="First Name" />
+                                <input type="hidden" value="{{ isset($user_details->id) ? $user_details->id : '' }}" class="form-control" id="user-id" placeholder="user id" name="user_id"
+                                    aria-label="User Id" />
                             </div>
                             <div class="col">
                                 <label class="form-label" for="last_name">Last Name</label>
@@ -73,41 +78,14 @@
                                     aria-label="Last Name" />
                             </div>
                         </div>
+                        @if(Request::segment(2) != 'edit')
                         <div class="row ">
                           <div class="col">
                             <label class="form-label" for="ecommerce-product-sku">Email</label>
                              <input type="email" value="{{ isset($user_details->email) ? $user_details->email : '' }}" class="form-control" placeholder="Email" name="email"
-                            aria-label="Email" readonly />
+                            aria-label="Email"  />
                           </div>
                           <div class="col">
-                            <label for="phone" class="form-label">Phone</label><br>
-                            <div class="contact-d">
-                            <select class="form-control" name="phonecode" >
-                            
-                            @if(!empty($phone_code))
-                                @foreach($phone_code as $code)
-                                    
-                                <option value="{{$code->phonecode}}" @php 
-                                   if((!empty($user_details->phonecode) &&  $user_details->phonecode == $code->phonecode)){
-                                       echo $selected = "selected";
-                                   }else{
-                                      echo  $selected = "";
-                                    }
-
-                                    @endphp>+{{$code->phonecode}}</option>
-                                @endforeach
-                            @endif
-                            </select>
-                            <input  id="phone_number" value="{{ isset($user_details->phone_number) ? $user_details->phone_number : '' }}" name="phone_number" type="text" placeholder="Enter your Phone"  class="form-control @error('phone') is-invalid @enderror"  required autocomplete="phone">
-                            </div> 
-                            <label id="phone_number-error" class="error" for="phone_number"></label> 
-                          </div>
-                        </div>
-
-
-                        <div class="row  form-password-toggle">
-                            
-                           <div class="col">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group input-group-merge">                 
                                     <input id="password" type="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
@@ -115,6 +93,36 @@
                                 </div>
                                 <label id="password-error" class="error" for="password"></label>
                             </div>
+                          
+                        </div>
+                        @endif
+
+
+                        <div class="row  form-password-toggle">
+                            <div class="col">
+                              <label for="phone" class="form-label">Phone</label><br>
+                              <div class="contact-d">
+                              <select class="form-control" name="phonecode" >
+                              
+                              @if(!empty($phone_code))
+                                  @foreach($phone_code as $code)
+                                      
+                                  <option value="{{$code->phonecode}}" @php 
+                                    if((!empty($user_details->phonecode) &&  $user_details->phonecode == $code->phonecode)){
+                                        echo $selected = "selected";
+                                    }else{
+                                        echo  $selected = "";
+                                      }
+
+                                      @endphp>+{{$code->phonecode}}</option>
+                                  @endforeach
+                              @endif
+                              </select>
+                              <input  id="phone_number" value="{{ isset($user_details->phone_number) ? $user_details->phone_number : '' }}" name="phone_number" type="text" placeholder="Enter your Phone"  class="form-control @error('phone') is-invalid @enderror"  required autocomplete="phone">
+                              </div> 
+                              <label id="phone_number-error" class="error" for="phone_number"></label> 
+                            </div>
+                           
 
                             <div class="col">
                                 <label class="form-label" for="bio">Bio</label>
@@ -148,7 +156,7 @@
                                     aria-label="State" />
                             </div>
                         </div>
-
+                        
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="title">Zipcode </label>
@@ -166,10 +174,12 @@
                             <div class="col">
                                 <label class="form-label" for="profile_image">Profile Image (square size) </label>
                                 <input type="file" class="form-control" id="profile_image" name="profile_image" />
+                                <img src="{{asset('/uploads/profile_image/')}}/{{ isset($user_details->profile_image) ? $user_details->profile_image : 'dummy_user.jpg' }}" width="40%">
                             </div>
                             <div class="col">
                                 <label class="form-label" for="cover_image">Cover Image (Banner size image) </label>
                                 <input type="file" class="form-control" id="cover_image" name="cover_image" />
+                                <img src="{{asset('/uploads/profile_image/')}}/{{ isset($user_details->cover_image) ? $user_details->cover_image : 'dummy_user.jpg' }}" width="40%">
                             </div>
                         </div>
 

@@ -62,13 +62,19 @@
                                     <td>{{$user->phone_number }}</td>
                                     <td>{{$user->created_at }}</td>
                                     <td>
-                                      @if($user->status == 1)<span class="badge bg-label-success" text-capitalized="">Active</span>@else
-                                      <span class="badge bg-label-secondary" text-capitalized="">Inactive</span>@endif
+                                  
+                                      @if($user->status == 1)
+                                          <a href="javascript:;" class="badge bg-label-success statusUser" id="statusUser{{ $user->id }}" data-user-id="{{ $user->id }}">Active</a>
+                                      @else
+                                          <a href="javascript:;" class="badge bg-label-secondary statusUser" id="statusUser{{ $user->id }}" data-user-id="{{ $user->id }}">Inactive</a>
+                                      @endif
+
+
                                     </td>
                                     <td>
                                       <div class="d-flex align-items-center">
                                         <a href="{{url('/user/edit/'.$user->id)}}" class="text-body"><i class="ti ti-edit ti-sm me-2"></i></a>
-                                        <a href="javascript:;" class="text-body delete-record"><i class="ti ti-trash ti-sm mx-2"></i></a>
+                                        <a href="javascript:;" data-user-id="{{$user->id}}" class="text-body delete-user"><i class="ti ti-trash ti-sm mx-2"></i></a>
                                         <!-- <a href="javascript:;" class="text-body dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="ti ti-dots-vertical ti-sm mx-1"></i></a>
                                         <div class="dropdown-menu dropdown-menu-end m-0">
                                           <a href="app-user-view-account.html" class="dropdown-item">View</a>
