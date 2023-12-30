@@ -156,29 +156,54 @@ class AuthController extends Controller
                 'password' => 'required',
             ]); 
 
-            $credentials = $request->only('email', 'password');
-            if (Auth::attempt($credentials)) {
+            
+            $user = User::where('email',  $request->input('email'))->first();
+           
+            if($user->email_verified !=0){
+                $credentials = $request->only('email', 'password');
+                if (Auth::attempt($credentials)) {
                 
-                return response()->json([
-                    'status' => 'success',
-                    'code' => 200,
-                    'message' => 'Data successfully processed.',
-                    "details"=> "Additional details about the success, such as a specific term or description.",
-                    'data' => json_encode([
-                        'id' => Auth::user()->id,
-                        'name' => Auth::user()->idname,
-                    ]),
-                ]);
+                    return response()->json([
+                        'status' => 'success',
+                        'code' => 200,
+                        'message' => 'Data successfully processed.',
+                        "details"=> "Additional details about the success, such as a specific term or description.",
+                        'data' => json_encode([
+                            'id' => Auth::user()->id,
+                            'name' => Auth::user()->idname,
+                        ]),
+                    ]);
 
+                }else{
+
+                    return response()->json([
+                        'status' => 'failed',
+                        'code' => 500,
+                        'message' =>  "Invalid login credentials",
+                        "details"=> "Please enter correct email Id or Password",
+                        'data' => null,
+                    ]);
+                }
             }else{
 
+                $data = [
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),           
+                    'verification_code' =>  $user->verification_code,
+                ];
+    
+                $mail = Mail::send('emails.email_verification', ['data' => $data], function ($message) use ($data) {
+                    $message->to($data['email'])
+                        ->from("reenaprajapat797@gmail.com", 'Company App')
+                        ->subject("Registration Confirmation");
+                });
+
                 return response()->json([
-                    'status' => 'failed',
-                    'code' => 500,
-                    'message' =>  "Invalid login credentials",
-                    "details"=> "Please enter correct email Id or Password",
-                    'data' => null,
+                    'status' => 'success',
+                    'code' => 201,
+                    'message' => "We've sent a verification code to your email. Please check your inbox and enter the code to complete the registration.",
                 ]);
+
             }
 
         } catch (ValidationException $e) {

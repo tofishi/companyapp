@@ -65,7 +65,7 @@ $(document).ready(function() {
                     if(response.code == "200")
                     {
                         toastr.success(response.message);
-                        window.location.href = "/otp"; 
+                        window.location.href = BASE_URL+"/otp"; 
                     }else{
                         toastr.error(response.message);
                     }                 
@@ -110,7 +110,7 @@ $(document).ready(function() {
                     if(response.code == "200")
                     {
                         toastr.success(response.message);
-                        window.location.href = "/dashboard"; 
+                        window.location.href = BASE_URL+"/dashboard"; 
                     }else{
                         toastr.error(response.message);
                     }                 
@@ -156,7 +156,10 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.code == "200") {
                         toastr.success(response.message);
-                        window.location.href = "/dashboard";
+                        window.location.href = BASE_URL+"/dashboard";
+                    }else if (response.code == "201") {
+                        toastr.success(response.message);
+                        window.location.href = BASE_URL+"/otp"; 
                     } else {
                         toastr.error(response.message);
                     }
@@ -269,7 +272,7 @@ $(document).ready(function() {
                 success: function(response) {
                     if (response.code == "200") {
                         toastr.success(response.message);
-                        //window.location.href = "/dashboard";
+                      
                     } else {
                         toastr.error(response.message);
                     }
